@@ -1,0 +1,3 @@
+run ./notify-send @->-i:icon @title @text
+
+
