@@ -17,7 +17,7 @@ public class DyProcessor {
 		String output = "";
 		for(String current : javady.split("\n")){
 			if(current.startsWith("run ")){
-				current = current.substring(current.indexOf("run "));
+				current = current.substring("run ".length());
 				Matcher matcher = Pattern.compile("((@|@->-[\\w]+:)[\\w]+)").matcher(current);
 				while(matcher.find()){
 					String var = matcher.group(0);
@@ -34,13 +34,14 @@ public class DyProcessor {
 						current = current.replaceAll(var+"(\\ |)", "");
 					}
 				}
-				
+				output = current;				
 			}
 		}
 		
 		return new ProcessResult(output);
 	}
-
+	
+	
 	public static ProcessResult processScript(String javady){
 		return processScript(javady, null);
 	}

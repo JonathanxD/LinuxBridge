@@ -6,6 +6,7 @@ import io.github.jonathanxd.linuxbridge.processor.DyProcessor;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -52,6 +53,10 @@ public class DyRunner {
 										
 										String scriptContent = StringUtils.stringFromBytes(FileUtils.FileInternalData.readFromFile(currentFile), Charset.defaultCharset());
 										DyProcessor.ProcessResult processResult = DyProcessor.processScript(scriptContent, variables);
+										/**
+										 * @TEMP
+										 */
+										go(currentFile.getAbsoluteFile().getParentFile(), processResult.output);
 										results.add(processResult);
 									}
 										
@@ -69,4 +74,17 @@ public class DyRunner {
 		return results;
 	}
 
+	private static void go(File dir, String runner){
+		ProcessBuilder pb = new ProcessBuilder(runner.split(" "));
+		pb.directory(dir);
+		try {
+			Process process = pb.start();
+			process.waitFor();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

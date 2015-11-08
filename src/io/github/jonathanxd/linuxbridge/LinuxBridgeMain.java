@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.Scanner;
 import java.util.jar.JarEntry;
@@ -161,6 +162,10 @@ public final class LinuxBridgeMain {
 		DyRunner runner = linuxBridgeMain.runner;
 		Scanner scan = new Scanner(System.in);
 		String next;
+		HashMap<String, String> map = new HashMap<>();
+		map.put("title", "batata");
+		map.put("text", "dump");
+		runner.run("notify-send", map);
 		runner.run("notify-send");
 		/*while((next = scan.nextLine()) != null){
 			if(next.equals("quit")){
@@ -169,6 +174,7 @@ public final class LinuxBridgeMain {
 				runner.run(next);
 			}
 		}*/
+		scan.close();
 	}
 
 }
